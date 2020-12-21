@@ -1,8 +1,5 @@
-# -*- coding: utf-8 -*-
 """
-Created on Wed Aug 29 01:04:23 2018
-
-@author: 1022316
+Forked by Kevin Gabayan on 12/25/20
 """
 
 #Classification of cancer dignosis
@@ -12,7 +9,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 #importing the dataset 
-dataset = pd.read_csv('C:\Machine learning\cancer_data\cancer.csv')
+dataset = pd.read_csv('data.csv')
 X = dataset.iloc[:, 1:31].values
 Y = dataset.iloc[:, 31].values
 
@@ -94,7 +91,12 @@ Y_pred = classifier.predict(X_test)
 #Creating the confusion Matrix
 from sklearn.metrics import confusion_matrix
 cm = confusion_matrix(Y_test, Y_pred)
-c = print(cm[0, 0] + cm[1, 1])
+
+c = cm[0, 0] + cm[1, 1]
+total = 0
+for i in cm:
+    total += i.sum()
+print(c/total)
 
 
 
