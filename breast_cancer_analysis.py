@@ -10,7 +10,9 @@ import pandas as pd
 
 #importing the dataset 
 dataset = pd.read_csv('data.csv')
+# X = our features
 X = dataset.iloc[:, 1:31].values
+# Y = what we are going to predict
 Y = dataset.iloc[:, 31].values
 
 dataset.head()
@@ -33,6 +35,8 @@ Y = labelencoder_Y.fit_transform(Y)
 
 
 # Splitting the dataset into the Training set and Test set
+# Training set = known output, model learns on this data
+# Test set = test our model's prediction on this subset
 from sklearn.model_selection import train_test_split
 X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size = 0.25, random_state = 0)
 
@@ -49,11 +53,43 @@ classifier = LogisticRegression(random_state = 0)
 classifier.fit(X_train, Y_train)
 #95.8 Acuracy
 
+#predicting the Test set results
+Y_pred = classifier.predict(X_test)
+#Creating the confusion Matrix
+from sklearn.metrics import confusion_matrix
+# True Negative = 0, 0
+# False Negative = 1, 0
+# True positive = 1, 1
+# False positive = 0, 1
+cm = confusion_matrix(Y_test, Y_pred)
+c = cm[0, 0] + cm[1, 1]
+total = 0
+for i in cm:
+    total += i.sum()
+accuracy = (c/total) * 100
+print("Logistic Regression: " + str(round(accuracy, 2)) + "%")
+
 #Fitting K-NN Algorithm
 from sklearn.neighbors import KNeighborsClassifier
 classifier = KNeighborsClassifier(n_neighbors = 5, metric = 'minkowski', p = 2)
 classifier.fit(X_train, Y_train)
 #95.1 Acuracy
+
+#predicting the Test set results
+Y_pred = classifier.predict(X_test)
+#Creating the confusion Matrix
+from sklearn.metrics import confusion_matrix
+# True Negative = 0, 0
+# False Negative = 1, 0
+# True positive = 1, 1
+# False positive = 0, 1
+cm = confusion_matrix(Y_test, Y_pred)
+c = cm[0, 0] + cm[1, 1]
+total = 0
+for i in cm:
+    total += i.sum()
+accuracy = (c/total) * 100
+print("Nearest Neighbor: " + str(round(accuracy, 2)) + "%")
 
 #Fitting SVM
 from sklearn.svm import SVC
@@ -61,11 +97,43 @@ classifier = SVC(kernel = 'linear', random_state = 0)
 classifier.fit(X_train, Y_train) 
 #97.2 Acuracy
 
+#predicting the Test set results
+Y_pred = classifier.predict(X_test)
+#Creating the confusion Matrix
+from sklearn.metrics import confusion_matrix
+# True Negative = 0, 0
+# False Negative = 1, 0
+# True positive = 1, 1
+# False positive = 0, 1
+cm = confusion_matrix(Y_test, Y_pred)
+c = cm[0, 0] + cm[1, 1]
+total = 0
+for i in cm:
+    total += i.sum()
+accuracy = (c/total) * 100
+print("Support Vector Machines: " + str(round(accuracy, 2)) + "%")
+
 #Fitting K-SVM
 from sklearn.svm import SVC
 classifier = SVC(kernel = 'rbf', random_state = 0)
 classifier.fit(X_train, Y_train)
 #96.5 Acuracy
+
+#predicting the Test set results
+Y_pred = classifier.predict(X_test)
+#Creating the confusion Matrix
+from sklearn.metrics import confusion_matrix
+# True Negative = 0, 0
+# False Negative = 1, 0
+# True positive = 1, 1
+# False positive = 0, 1
+cm = confusion_matrix(Y_test, Y_pred)
+c = cm[0, 0] + cm[1, 1]
+total = 0
+for i in cm:
+    total += i.sum()
+accuracy = (c/total) * 100
+print("K-SVM: " + str(round(accuracy, 2)) + "%")
 
 #Fitting Naive_Bayes
 from sklearn.naive_bayes import GaussianNB
@@ -73,11 +141,43 @@ classifier = GaussianNB()
 classifier.fit(X_train, Y_train)
 #91.6 Acuracy
 
+#predicting the Test set results
+Y_pred = classifier.predict(X_test)
+#Creating the confusion Matrix
+from sklearn.metrics import confusion_matrix
+# True Negative = 0, 0
+# False Negative = 1, 0
+# True positive = 1, 1
+# False positive = 0, 1
+cm = confusion_matrix(Y_test, Y_pred)
+c = cm[0, 0] + cm[1, 1]
+total = 0
+for i in cm:
+    total += i.sum()
+accuracy = (c/total) * 100
+print("Naive Bayes: " + str(round(accuracy, 2)) + "%")
+
 #Fitting Decision Tree Algorithm
 from sklearn.tree import DecisionTreeClassifier
 classifier = DecisionTreeClassifier(criterion = 'entropy', random_state = 0)
 classifier.fit(X_train, Y_train)
 #95.8 Acuracy
+
+#predicting the Test set results
+Y_pred = classifier.predict(X_test)
+#Creating the confusion Matrix
+from sklearn.metrics import confusion_matrix
+# True Negative = 0, 0
+# False Negative = 1, 0
+# True positive = 1, 1
+# False positive = 0, 1
+cm = confusion_matrix(Y_test, Y_pred)
+c = cm[0, 0] + cm[1, 1]
+total = 0
+for i in cm:
+    total += i.sum()
+accuracy = (c/total) * 100
+print("Decision Tree Algorithm: " + str(round(accuracy, 2)) + "%")
 
 #Fitting Random Forest Classification Algorithm
 from sklearn.ensemble import RandomForestClassifier
@@ -87,16 +187,19 @@ classifier.fit(X_train, Y_train)
 
 #predicting the Test set results
 Y_pred = classifier.predict(X_test)
-
 #Creating the confusion Matrix
 from sklearn.metrics import confusion_matrix
+# True Negative = 0, 0
+# False Negative = 1, 0
+# True positive = 1, 1
+# False positive = 0, 1
 cm = confusion_matrix(Y_test, Y_pred)
-
 c = cm[0, 0] + cm[1, 1]
 total = 0
 for i in cm:
     total += i.sum()
-print(c/total)
+accuracy = (c/total) * 100
+print("Random Forest Classification: " + str(round(accuracy, 2)) + "%")
 
 
 
